@@ -1,5 +1,4 @@
 const RecentActivities = ({ workouts, meals }) => {
-  // Combine and sort recent activities
   const activities = [
     ...workouts.map(w => ({ ...w, type: 'workout' })),
     ...meals.map(m => ({ ...m, type: 'meal' }))

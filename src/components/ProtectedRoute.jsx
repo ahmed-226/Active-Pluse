@@ -4,7 +4,6 @@ import { Navigate } from 'react-router-dom'
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth()
 
-  // Show loading spinner while checking auth status
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">

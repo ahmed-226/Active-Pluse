@@ -66,13 +66,13 @@ export const FitnessProvider = ({ children }) => {
 
     switch (goalType) {
       case 'weight_loss':
-        // For weight loss: progress = (starting - current) / (starting - target) * 100
+        
         if (!startingValue || startingValue <= targetValue) return 0
         const weightLossProgress = ((startingValue - currentValue) / (startingValue - targetValue)) * 100
         return Math.max(0, Math.min(100, Math.round(weightLossProgress)))
       
       case 'weight_gain':
-        // For weight gain: progress = (current - starting) / (target - starting) * 100
+        
         if (!startingValue || startingValue >= targetValue) return 0
         const weightGainProgress = ((currentValue - startingValue) / (targetValue - startingValue)) * 100
         return Math.max(0, Math.min(100, Math.round(weightGainProgress)))
@@ -82,7 +82,7 @@ export const FitnessProvider = ({ children }) => {
       case 'time':
       case 'increase':
       default:
-        // For increase goals: progress = (current / target) * 100
+        
         const increaseProgress = (currentValue / targetValue) * 100
         return Math.max(0, Math.min(100, Math.round(increaseProgress)))
     }
@@ -99,7 +99,7 @@ export const FitnessProvider = ({ children }) => {
       goalType: goal.goalType || 'increase'
     }
     
-    // Calculate initial progress
+    
     newGoal.progress = calculateGoalProgress(newGoal)
     
     const updatedProfile = {
@@ -120,17 +120,16 @@ export const FitnessProvider = ({ children }) => {
           }
           updatedGoal.progress = calculateGoalProgress(updatedGoal)
           
-          // Check if goal is completed (100% progress)
           if (updatedGoal.progress >= 100) {
-            // Move to achievements
+            
             moveGoalToAchievements(updatedGoal)
-            return null // Mark for removal from goals
+            return null 
           }
           
           return updatedGoal
         }
         return goal
-      }).filter(Boolean) // Remove null values (completed goals)
+      }).filter(Boolean) 
     }
     updateProfile(updatedProfile)
   }

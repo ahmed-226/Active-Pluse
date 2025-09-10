@@ -5,8 +5,7 @@ import GoalProgress from '../components/GoalProgress'
 
 const Dashboard = () => {
   const { workouts, meals, profile } = useFitness()
-
-  // Calculate stats
+  
   const currentWeek = new Date()
   const weekStart = new Date(currentWeek.setDate(currentWeek.getDate() - currentWeek.getDay()))
   
@@ -22,7 +21,7 @@ const Dashboard = () => {
 
   const todayCalories = todayMeals.reduce((total, meal) => total + (meal.calories || 0), 0)
 
-  const weeklyProgress = Math.round((thisWeekWorkouts / 5) * 100) // Assuming 5 workouts per week goal
+  const weeklyProgress = Math.round((thisWeekWorkouts / 5) * 100) 
 
   const totalActiveMinutes = workouts.reduce((total, workout) => total + (workout.duration || 0), 0)
 

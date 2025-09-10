@@ -13,7 +13,6 @@ import ProtectedRoute from './components/ProtectedRoute'
 import { Suspense, lazy } from 'react'
 import './App.css'
 
-// Lazy load DevHelper only in development
 const DevHelper = import.meta.env.DEV 
   ? lazy(() => import('./components/DevHelper'))
   : null

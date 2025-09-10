@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-// Only import seedData in development
+
 let loadSeedData, clearAllData, getDataStats
 
 if (import.meta.env.DEV) {
@@ -16,7 +16,7 @@ if (import.meta.env.DEV) {
     getDataStats = () => ({ workouts: 0, meals: 0, goals: 0, hasProfile: false })
   }
 } else {
-  // Production fallbacks
+  
   loadSeedData = () => false
   clearAllData = () => false
   getDataStats = () => ({ workouts: 0, meals: 0, goals: 0, hasProfile: false })
@@ -26,7 +26,7 @@ const DevHelper = () => {
   const [stats, setStats] = useState({ workouts: 0, meals: 0, goals: 0, hasProfile: false })
   const [showHelper, setShowHelper] = useState(false)
 
-  // Hide DevHelper in production
+  
   if (import.meta.env.PROD) {
     return null
   }
@@ -63,7 +63,7 @@ const DevHelper = () => {
     }
   }
 
-  // Rest of your component remains the same...
+  
   return (
     <div className="fixed bottom-4 right-4 z-[9999]">
       {/* Environment indicator */}

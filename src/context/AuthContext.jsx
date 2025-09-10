@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Check for saved user and auth status on app startup
+    
     const savedUser = localStorage.getItem('fitnessUser')
     const savedAuthStatus = localStorage.getItem('fitnessAuthStatus')
     
@@ -28,13 +28,13 @@ export const AuthProvider = ({ children }) => {
         console.log('✅ User restored from localStorage:', userData.name)
       } catch (error) {
         console.error('❌ Error parsing saved user data:', error)
-        // Clear corrupted data
+        
         localStorage.removeItem('fitnessUser')
         localStorage.removeItem('fitnessAuthStatus')
       }
     }
     
-    // Always apply dark mode
+    
     document.documentElement.classList.add('dark')
     setLoading(false)
   }, [])
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
     setUser(userToSave)
     setIsAuthenticated(true)
     
-    // Save to localStorage
+    
     localStorage.setItem('fitnessUser', JSON.stringify(userToSave))
     localStorage.setItem('fitnessAuthStatus', 'true')
     
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null)
     setIsAuthenticated(false)
     
-    // Clear from localStorage
+    
     localStorage.removeItem('fitnessUser')
     localStorage.removeItem('fitnessAuthStatus')
     

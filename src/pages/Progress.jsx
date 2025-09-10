@@ -4,13 +4,12 @@ import SimpleChart from '../components/SimpleChart'
 const Progress = () => {
   const { workouts, meals, profile } = useFitness()
 
-  // Calculate workout data for the last 14 days (broader range to show data)
+  
   const getWorkoutData = () => {
     const daysToShow = 14
     const dailyData = {}
     const today = new Date()
     
-    // Initialize with the last 14 days
     for (let i = daysToShow - 1; i >= 0; i--) {
       const date = new Date(today)
       date.setDate(date.getDate() - i)
@@ -18,7 +17,7 @@ const Progress = () => {
       dailyData[dateStr] = 0
     }
 
-    // Count workouts for each day
+    
     workouts.forEach(workout => {
       if (dailyData.hasOwnProperty(workout.date)) {
         dailyData[workout.date]++
@@ -31,15 +30,13 @@ const Progress = () => {
     }))
   }
 
-  // Enhanced workout timeline - shows actual workout activities
   const getWorkoutTimeline = () => {
     if (workouts.length === 0) return []
     
-    // Get last 10 workouts with details
     const recentWorkouts = [...workouts]
       .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .slice(0, 8) // Show last 8 workouts
-      .reverse() // Show chronologically
+      .slice(0, 8) 
+      .reverse() 
     
     return recentWorkouts.map(workout => ({
       date: new Date(workout.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
@@ -50,29 +47,26 @@ const Progress = () => {
       fullDate: workout.date
     }))
   }
-
-  // Calculate calorie data for the last 14 days
+  
   const getCalorieData = () => {
     const daysToShow = 14
     const dailyData = {}
     const today = new Date()
     
-    // Initialize with the last 14 days
+    
     for (let i = daysToShow - 1; i >= 0; i--) {
       const date = new Date(today)
       date.setDate(date.getDate() - i)
       const dateStr = date.toISOString().split('T')[0]
       dailyData[dateStr] = { consumed: 0, burned: 0 }
     }
-
-    // Add meal calories
+    
     meals.forEach(meal => {
       if (dailyData.hasOwnProperty(meal.date)) {
         dailyData[meal.date].consumed += meal.calories || 0
       }
     })
-
-    // Add workout calories burned
+    
     workouts.forEach(workout => {
       if (dailyData.hasOwnProperty(workout.date)) {
         dailyData[workout.date].burned += workout.caloriesBurned || 0
@@ -85,12 +79,11 @@ const Progress = () => {
       burned: data.burned
     }))
   }
-
-  // Alternative: Show recent data based on actual workout/meal dates
+  
   const getRecentWorkoutData = () => {
     if (workouts.length === 0) return []
     
-    // Get all unique workout dates, sorted by most recent
+    
     const workoutDates = [...new Set(workouts.map(w => w.date))].sort().slice(-10)
     
     const dateCountMap = {}
@@ -109,7 +102,6 @@ const Progress = () => {
   const getRecentCalorieData = () => {
     if (workouts.length === 0 && meals.length === 0) return []
     
-    // Get all unique dates from both workouts and meals
     const allDates = [...new Set([
       ...workouts.map(w => w.date),
       ...meals.map(m => m.date)
@@ -117,19 +109,16 @@ const Progress = () => {
     
     const dateDataMap = {}
     
-    // Initialize dates
     allDates.forEach(date => {
       dateDataMap[date] = { consumed: 0, burned: 0 }
     })
     
-    // Add meal calories
     meals.forEach(meal => {
       if (dateDataMap[meal.date]) {
         dateDataMap[meal.date].consumed += meal.calories || 0
       }
     })
     
-    // Add workout calories
     workouts.forEach(workout => {
       if (dateDataMap[workout.date]) {
         dateDataMap[workout.date].burned += workout.caloriesBurned || 0
@@ -143,7 +132,7 @@ const Progress = () => {
     }))
   }
 
-  // Calculate workout type distribution
+  
   const getWorkoutTypeDistribution = () => {
     if (workouts.length === 0) return []
     
@@ -158,14 +147,12 @@ const Progress = () => {
       percentage: Math.round((count / workouts.length) * 100)
     }))
   }
-
-  // Use recent data if we have workouts/meals, otherwise use the 14-day range
+  
   const workoutChartData = workouts.length > 0 ? getRecentWorkoutData() : getWorkoutData()
   const calorieChartData = (workouts.length > 0 || meals.length > 0) ? getRecentCalorieData() : getCalorieData()
   const workoutDistribution = getWorkoutTypeDistribution()
   const workoutTimeline = getWorkoutTimeline()
-
-  // Helper functions for workout timeline
+  
   const getActivityIcon = (activity) => {
     switch (activity) {
       case 'Running': return '🏃‍♂️'
