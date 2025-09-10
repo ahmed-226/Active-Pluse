@@ -92,7 +92,7 @@ A comprehensive fitness tracking application built with React and Vite, featurin
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/activepulse.git
+git clone https://github.com/ahmed-226/Active-Pluse.git
 cd activepulse
 ```
 
